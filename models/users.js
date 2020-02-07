@@ -61,8 +61,7 @@ User.init(
       defaultValue: true
     },
     coin_favorite: {
-      type: Sequelize.ENUM,
-      values: ["cop", "eur", "usd"],
+      type: Sequelize.ENUM("cop", "eur", "usd"),
       validate: {
         isIn: {
           args: [["cop", "eur", "usd"]],

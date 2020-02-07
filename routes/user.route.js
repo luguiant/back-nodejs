@@ -24,7 +24,7 @@ router.post(
       .matches(/^[A-Za-z0-9_]+$/, "i")
       .withMessage("El nombre de usuario debe ser alfa numerico")
       .custom((value, { req, loc, path }) => {
-        return User.findOne({ username: value }).then(userDoc => {
+        return User.findOne({where: { username: value }}).then(userDoc => {
             if (userDoc) {
               return Promise.reject('El nombre usuario ya existe!');
             }
@@ -41,17 +41,23 @@ router.post(
       .withMessage("Los apellidos son requeridos")
       .trim()
       .escape(),
+    body("confirm_password")
+      .exists()
+      .withMessage("La confirmación del password es requerida")
+      .trim()
+      .escape(),  
     body("password")
       .isLength({ min: 8, max: 8 })
       .withMessage("El password debe ser de 8 carcateres")
       .exists()
       .withMessage("El password es requerido")
-      .trim()
-      .escape(),
-    body("confirm_password")
-      .exists()
-      .withMessage("La confirmación del password es requerida")
-      .equals('password')
+      .custom((value, { req, loc, path }) => {
+        if (req.body.password === req.body.confirm_password) {
+            return true;
+          } else {
+            return false;
+        }
+      })
       .withMessage("La confirmación del password no coincide")
       .trim()
       .escape(),

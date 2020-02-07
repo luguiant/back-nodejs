@@ -1,10 +1,10 @@
 module.exports = {
   development: {
     host: "localhost",
-    user: "root",
-    port: "3306",
+    username: "root",
+    port: 3306,
     password: "123456",
-    db: "testdb",
+    database: "testdb",
     dialect: "mysql",
     pool: {
       max: 5,
@@ -24,10 +24,10 @@ module.exports = {
   },
   production: {
     host: "localhost",
-    user: "root",
-    port: "3306",
+    username: "root",
+    port: 3306,
     password: "123456",
-    db: "testdb",
+    database: "testdb",
     dialect: "mysql",
     pool: {
       max: 5,
@@ -47,10 +47,10 @@ module.exports = {
   },
   test: {
     host: "localhost",
-    user: "root",
-    port: "3306",
+    username: "root",
+    port: 3306,
     password: "123456",
-    db: "testdb",
+    database: "testdb",
     dialect: "mysql",
     pool: {
       max: 5,
