@@ -86,4 +86,25 @@ router.post(
   usersController.signup
 );
 
+router.post(
+  "/auth",
+  [
+    body('username')
+      .exists()
+      .withMessage("El nombre de usuario es requerido")
+      .matches(/^[A-Za-z0-9_]+$/, "i")
+      .withMessage("El nombre de usuario debe ser alfa numerico")
+      .trim()
+      .escape(),
+    body("password")
+      .isLength({ min: 8, max: 8 })
+      .withMessage("El password debe ser de 8 carcateres")
+      .exists()
+      .withMessage("El password es requerido")
+      .trim()
+      .escape(),
+  ],
+  usersController.login
+);
+
 module.exports = router;
