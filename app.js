@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const corsOprions = require("./config/cors.config");
 const userRoutes = require("./routes/user.route");
+const braveRoute = require("./routes/currency.route");
+const coinRoute = require("./routes/coin.route");
 
 const app = express();
 
@@ -17,9 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // RUTAS
 app.use('/api/user',userRoutes);
 
-app.get('*',(req,res)=>{
-    res.status(200).send('start');
-});
+app.use('/api/brave',braveRoute);
+
+app.use('/api/coin', coinRoute);
+
 
 app.use((error, req, res, next) => {
     const status = error.statusCode || 500;

@@ -52,7 +52,7 @@ exports.login = (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   let loadedUser;
-  User.findOne({ username })
+  User.findOne({where: { username }})
     .then(user => {
       if (!user) {
         const error = new Error('El usuario no fue encontrado.');
@@ -76,7 +76,7 @@ exports.login = (req, res, next) => {
         config.keyToken,
         { expiresIn: config.tokenTime }
       );
-      res.status(200).json({ token: token, userId: loadedUser.secret.toString() });
+      res.status(200).json({ token });
     })
     .catch(err => {
       if (!err.statusCode) {

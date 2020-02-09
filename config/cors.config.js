@@ -1,5 +1,5 @@
 module.exports = {
-  "origin": "www.google.com",
+  "origin": "*",
   "method": [
       'GET',
       'POST',

@@ -17,7 +17,10 @@ module.exports = {
       freezeTableName: false,
       charset: "utf8",
       dialectOptions: {
-        collate: "utf8_general_ci"
+        collate: "utf8_general_ci",
+        useUTC: false,
+        dateStrings: true,
+        typeCast: true
       },
       timestamps: true
     }
@@ -40,7 +43,10 @@ module.exports = {
       freezeTableName: false,
       charset: "utf8",
       dialectOptions: {
-        collate: "utf8_general_ci"
+        collate: "utf8_general_ci",
+        useUTC: false,
+        dateStrings: true,
+        typeCast: true
       },
       timestamps: true
     }
@@ -63,7 +69,10 @@ module.exports = {
       freezeTableName: false,
       charset: "utf8",
       dialectOptions: {
-        collate: "utf8_general_ci"
+        collate: "utf8_general_ci",
+        useUTC: false,
+        dateStrings: true,
+        typeCast: true
       },
       timestamps: true
     }

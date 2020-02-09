@@ -78,6 +78,13 @@ User.init(
   }
 );
 
+
+
 module.exports = User;
+
+module.exports.getUser = async (secret) => {
+    return await User.findOne({attributes:['id','names','lastnames','username','coin_favorite'],where: { secret }}).then( user => { return user;});
+};
+
 
 
