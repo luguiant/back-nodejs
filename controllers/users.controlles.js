@@ -63,7 +63,6 @@ exports.login = (req, res, next) => {
       return bcrypt.compare(password, user.password);
     })
     .then(isEqual => {
-      console.log(isEqual);
       if (!isEqual) {
         const error = new Error('Usuario o contraseña invalido.');
         error.statusCode = 401;

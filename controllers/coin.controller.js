@@ -34,7 +34,6 @@ const getDigitalCoin = async (coin_favorite, coin, res, next) => {
   if (!result || (result && !result.success)) {
     await errorHelper(res, next, "Error", 422, "Cripto moneda no encontrada.");
   }
-
   return result;
 };
 
