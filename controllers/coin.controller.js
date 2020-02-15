@@ -144,7 +144,7 @@ exports.listMyCoin = async (req, res, next) => {
   let listCoin;
   try {
     listCoin = await Coin.findAll({
-      attributes: ["price_coin", "name_coin","code_coin", "source", "secret"],
+      attributes: ["price_coin", "name_coin", "code_coin", "source", "secret"],
       where: { user_id }
     });
   } catch (err) {
