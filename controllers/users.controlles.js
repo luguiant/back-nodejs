@@ -71,7 +71,8 @@ exports.login = (req, res, next) => {
       const token = jwt.sign(
         {
           username: loadedUser.username,
-          userId: loadedUser.secret.toString()
+          userId: loadedUser.secret.toString(),
+          coin: loadedUser.coin_favorite
         },
         config.keyToken,
         { expiresIn: config.tokenTime }
@@ -84,4 +85,18 @@ exports.login = (req, res, next) => {
       }
       next(err);
     });
+};
+
+exports.datalogin = (req, res, next) => {
+  const authHeader = req.get("Authorization");
+  let decodedToken;
+  try {
+    decodedToken = jwt.verify(authHeader,config.keyToken);
+    console.log(decodedToken);
+  } catch (err) {
+    const error = new Error(err);
+    error.statusCode = 500;
+    throw error;
+  }
+  res.status(200).json({ coin: decodedToken.coin});
 };

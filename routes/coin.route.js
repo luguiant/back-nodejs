@@ -53,6 +53,48 @@ router.post(
     coin.convert
 );
 
+router.post(
+  '/convert_list',
+  isAuth,
+  [
+      body("from")
+          .exists()
+          .withMessage("La moneda es requerida.")
+          .isLength({ min: 3, max: 10 })
+          .withMessage("La moneda debe ser entre 3-10 caracteres")
+          .matches(/^[A-Za-z0-9]+$/, "i")
+          .withMessage("La moneda debe ser solo alfanumerica")
+          .trim()
+          .escape(),
+      body("to")
+          .exists()
+          .withMessage("La moneda es requerida.")
+          .isLength({ min: 3, max: 10 })
+          .withMessage("La moneda debe ser entre 3-10 caracteres")
+          .matches(/^[A-Za-z0-9]+$/, "i")
+          .withMessage("La moneda debe ser solo alfanumerica")
+          .trim()
+          .escape(),
+      body('qty')
+          .exists()
+          .withMessage("La cantidad es requerida")
+          .matches(/^[0-9]+$/, "i")
+          .withMessage("La cantidad es numerica")
+          .custom((value, { req, loc, path }) => {
+              if (value > 0) {
+                  return true;
+                } else {
+                  return false;
+              }
+            })
+          .withMessage("La cantidad debe ser mayor que 0")
+          .trim()
+          .escape()
+  ],
+  coin.converList
+);
+
+
 router.get('/list_my_coin', isAuth, coin.listMyCoin);
 router.post('/my_favorite_coins', isAuth,[
     body("order")
@@ -75,5 +117,6 @@ router.post('/my_favorite_coins', isAuth,[
     .trim()
     .escape()
 ],coin.listfavorite);
+
 
 module.exports = router;

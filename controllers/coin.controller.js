@@ -277,6 +277,50 @@ exports.convert = async (req, res, next) => {
   });
 };
 
+exports.converList = async (req, res, next) => {
+  const errors = validationResult(req);
+  const authHeader = req.get("Authorization");
+
+  if (!errors.isEmpty()) {
+    await errorHelper(res, next, "Validation error", 422, errors.array());
+  }
+
+  const qty = req.body.qty;
+  const from = req.body.from;
+  const to = req.body.to;
+
+  const options = {
+    method: "GET",
+    url: `https://${apiConfig.apiUrl}/convert`,
+    qs: {
+      qty,
+      from,
+      to
+    },
+    headers: {
+      "x-rapidapi-host": apiConfig.apiUrl,
+      "x-rapidapi-key": apiConfig.apiKey
+    }
+  };
+
+  let conver;
+  try {
+    convert = await request(options).then(result => JSON.parse(result));
+  } catch (err) {
+    await errorHelper(res, next, "Error", 500, "Coin service failed.");
+  }
+
+  res.status(201).json({
+    message: "Convert",
+    data: {
+      qty,
+      from,
+      to,
+      to_quantity: convert.to_quantity
+    }
+  });
+};
+
 exports.listfavorite = async (req, res, next) => {
   const errors = validationResult(req);
   const authHeader = req.get("Authorization");

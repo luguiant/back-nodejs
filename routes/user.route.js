@@ -1,6 +1,6 @@
 const express  = require("express");
 const { body } = require("express-validator");
-
+const isAuth = require("../middleware/is-auth.middleware");
 const User = require("../models/users");
 const usersController = require("../controllers/users.controlles");
 
@@ -106,5 +106,7 @@ router.post(
   ],
   usersController.login
 );
+
+router.get("/data_user",isAuth, usersController.datalogin);
 
 module.exports = router;
